@@ -3,3 +3,6 @@
 *.sfc
 *.sym
 linkfile
+data
+data.asm
+__pycache__

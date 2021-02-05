@@ -4,5 +4,6 @@
     ],
     "files.associations": {
         "snes.h": "c"
-    }
+    },
+    "python.formatting.provider": "yapf"
 }

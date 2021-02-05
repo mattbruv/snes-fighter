@@ -4,12 +4,15 @@ endif
 
 include snes_rules.mk
  
-.PHONY: bitmaps all
+.PHONY: process all
  
 #---------------------------------------------------------------------------------
 # ROMNAME is used in snes_rules file
 export ROMNAME := fighter
 
-all: bitmaps $(ROMNAME).sfc
+all: preProcess $(ROMNAME).sfc
+
+preProcess:
+	python python/gfx.py
 
 clean: cleanBuildRes cleanRom cleanGfx
