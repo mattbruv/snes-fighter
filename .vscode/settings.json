@@ -1,0 +1,8 @@
+{
+    "C_Cpp.default.includePath": [
+        "C:\\snesdev\\pvsneslib\\include"
+    ],
+    "files.associations": {
+        "snes.h": "c"
+    }
+}
