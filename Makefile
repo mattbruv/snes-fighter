@@ -2,7 +2,7 @@ ifeq ($(strip $(PVSNESLIB_HOME)),)
 $(error "Please create an environment variable PVSNESLIB_HOME with path to its folder and restart application. (you can do it on windows with <setx PVSNESLIB_HOME "/c/snesdev">)")
 endif
 
-include ${PVSNESLIB_HOME}/devkitsnes/snes_rules
+include snes_rules.mk
  
 .PHONY: bitmaps all
  
