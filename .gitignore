@@ -1,0 +1,5 @@
+*.obj
+*.ps
+*.sfc
+*.sym
+linkfile
