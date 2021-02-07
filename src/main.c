@@ -21,45 +21,8 @@ void main()
     bgSetDisable(2);
     setScreenOn();
 
-    char keys[16] = "0000000000000000";
-
-    u8 i;
-    u16 pad0;
-    consoleDrawText(1, 1, "Controller keys:");
-    u8 x = 0;
-    u8 y = 0;
-
-    char frame_str[16];
-    u32 frame = 0;
-
-#define SPEED 3
-
     while (1)
     {
-        pad0 = padsCurrent(0);
-        for (i = 0; i < 16; i++)
-        {
-            keys[i] = '0';
-            if ((pad0 & (1 << i)))
-            {
-                keys[i] = '1';
-            }
-        }
-        consoleDrawText(1, 3, keys);
-        if (pad0 & KEY_LEFT)
-            x -= SPEED;
-        if (pad0 & KEY_RIGHT)
-            x += SPEED;
-        if (pad0 & KEY_UP)
-            y -= SPEED;
-        if (pad0 & KEY_DOWN)
-            y += SPEED;
-
-        sprintf(frame_str, "%u", ++frame);
-        consoleDrawText(1, 18, "frame:");
-        consoleDrawText(1, 20, frame_str);
-
         WaitForVBlank();
-        bgSetScroll(0, x, y);
     }
 }
