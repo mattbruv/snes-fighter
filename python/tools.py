@@ -12,7 +12,7 @@ def makeDirs():
 
 def moveFilesToData(rootPath, fileTypes):
     for t in fileTypes:
-        fs = rootPath.rglob("*" + t)
+        fs = Path(rootPath).rglob("*" + t)
         for f in fs:
             name = f.name
             f.replace("data/" + name)

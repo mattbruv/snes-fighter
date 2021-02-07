@@ -3,7 +3,8 @@
         "C:\\snesdev\\pvsneslib\\include"
     ],
     "files.associations": {
-        "snes.h": "c"
+        "snes.h": "c",
+        "data.h": "c"
     },
     "python.formatting.provider": "yapf"
 }

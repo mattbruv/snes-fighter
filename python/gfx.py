@@ -1,40 +1,39 @@
 import subprocess
 from pathlib import Path
-from tools import GFX_TOOL, makeDirs, moveFilesToData
 
-# $(GFXCONV) -pr -pc16 -n -gs8 -pe0 -fbmp -m $<
+from tools import GFX_TOOL, moveFilesToData
 
-params = ["-pr", "-pc16", "-n", "-gs8", "-pe0", "-fbmp", "-m"]
+defaultArgs = ["-pr", "-pc16", "-n", "-gs8", "-pe0", "-fbmp", "-m"]
 
-gfxPath = Path("gfx/")
+graphics = [  #
+    {
+        "glob": "*.bmp",
+        "args": defaultArgs
+    }
+]
 
+filetypes = [".map", ".pal", ".pic"]
 
-def addGFXData(string, name):
-    splitName = name.split(".")[0]
-    files = [".pic", ".map", ".pal"]
-    for f in files:
-        name = splitName + "_" + f.replace(".", "")
-        string += name + ":" + "\n"
-        string += '.incbin "data/' + splitName + f + '"\n'
-        string += name + "_end:\n\n"
-    return string
+gfxPath = "gfx/"
 
 
-def run():
-    makeDirs()
-
-    images = gfxPath.rglob("*.bmp")
-    asmText = ""
-
-    for img in images:
-        asmText += addGFXData(asmText, img.name)
-        subprocess.run([GFX_TOOL] + params + [str(img)])
-
-    moveFilesToData(gfxPath, [".map", ".pal", ".pic"])
-
-    text = open("python/data_template.asm", "r").read()
-    text = text.replace("{GFX}", asmText)
-    open("data.asm", "w").write(text)
+def processOutput(data):
+    for filetype in filetypes:
+        files = Path(gfxPath).rglob("*" + filetype)
+        for f in files:
+            name = f.name
+            entry = {"file": name, "prefix": "gfx"}
+            data.append(entry)
+            f.replace("data/" + name)
 
 
-run()
+def processGraphics(data):
+    print("Processing graphics...")
+
+    for group in graphics:
+        files = Path("gfx/").rglob(group["glob"])
+        for f in files:
+            command = [GFX_TOOL] + group["args"] + [str(f)]
+            subprocess.run(command)
+
+    processOutput(data)

@@ -5,4 +5,5 @@
 linkfile
 data
 data.asm
+src/data.h
 __pycache__

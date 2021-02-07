@@ -1,5 +1,7 @@
 #include <snes.h>
 
+#include "data.h"
+
 void main()
 {
     // Initialize SNES

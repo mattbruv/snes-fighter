@@ -13,6 +13,6 @@ export ROMNAME := fighter
 all: preProcess $(ROMNAME).sfc
 
 preProcess:
-	python python/gfx.py
+	python python/build.py
 
 clean: cleanBuildRes cleanRom cleanGfx
