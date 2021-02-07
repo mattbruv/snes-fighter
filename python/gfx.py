@@ -4,11 +4,16 @@ from pathlib import Path
 from tools import GFX_TOOL, moveFilesToData
 
 defaultArgs = ["-pr", "-pc16", "-n", "-gs8", "-pe0", "-fbmp", "-m"]
+fontArgs = "-n -gs8 -po2 -pc16 -pe1 -mR! -m! -p!".split()
 
 graphics = [  #
     {
-        "glob": "*.bmp",
+        "glob": "backgrounds/*.bmp",
         "args": defaultArgs
+    },  #
+    {
+        "glob": "fonts/*.bmp",
+        "args": fontArgs
     }
 ]
 
