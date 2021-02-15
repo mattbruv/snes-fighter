@@ -4,7 +4,8 @@
     ],
     "files.associations": {
         "snes.h": "c",
-        "data.h": "c"
+        "data.h": "c",
+        "vblank.h": "c"
     },
     "python.formatting.provider": "yapf"
 }

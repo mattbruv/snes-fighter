@@ -1,6 +1,7 @@
 #include <snes.h>
 
 #include "data.h"
+#include "vblank.h"
 
 void main()
 {
@@ -21,8 +22,16 @@ void main()
     bgSetDisable(2);
     setScreenOn();
 
+    // Set custom VBlank function
+    nmiSet(customVBlank);
+    u8 i = 0;
+    char msg[16];
+
     while (1)
     {
+        i++;
+        sprintf(msg, "%u\n", (u32)i);
+        consoleNocashMessage(msg);
         WaitForVBlank();
     }
 }
