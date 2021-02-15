@@ -11,7 +11,7 @@ def addSection(text, number):
 
 
 def endSection(text):
-    text += ".ends"
+    text += ".ends\n\n"
     return text
 
 

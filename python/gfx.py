@@ -4,12 +4,28 @@ from pathlib import Path
 from tools import GFX_TOOL, moveFilesToData
 
 defaultArgs = ["-pr", "-pc16", "-n", "-gs8", "-pe0", "-fbmp", "-m"]
+
+scrollingArgs = [
+    "-pr",  # Rearrange palette, and preserve palette numbers in the tilemap
+    "-pc16",  # The number of colors to use: 16
+    "-n",  # no border
+    "-gs8",  # Size of image blocks in pixels: 8
+    "-pe4",  # The palette entry to add to map tiles (0 to 16)
+    "-fbmp",  # convert a bmp
+    "-mp",  # Convert the whole picture with high priority
+    "-m32p"  # Generate tile map organized in pages of 32x32 (good for scrolling)
+]
+
 fontArgs = "-n -gs8 -po2 -pc16 -pe1 -mR! -m! -p!".split()
 
 graphics = [  #
     {
         "glob": "backgrounds/*.bmp",
         "args": defaultArgs
+    },  #
+    {
+        "glob": "backgrounds/scrolling/*.bmp",
+        "args": scrollingArgs
     },  #
     {
         "glob": "fonts/*.bmp",
