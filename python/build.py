@@ -37,11 +37,11 @@ def writeData(data):
     for entry in data:
         file = Path("data/" + entry["file"])
         size = file.stat().st_size
-        if size > sectionSizeLimit:
+        if size >= sectionSizeLimit:
             print(file, "too big!", size)
             exit(1)
         # if spilling into next section, make new one
-        if (bytesUsed + size) > sectionSizeLimit:
+        if (bytesUsed + size) >= sectionSizeLimit:
             asmText = endSection(asmText)
             sectionNumber += 1
             asmText = addSection(asmText, sectionNumber)

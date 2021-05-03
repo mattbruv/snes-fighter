@@ -18,18 +18,16 @@ void main()
     consoleInitText(2, 0, &gfx_font_pic);
     consoleSetTextCol(RGB15(0, 0, 31), RGB15(0, 31, 0));
 
-    u8 x, y;
+    u16 x = 256;
+    u16 y = 0;
     u16 pad;
 
     u8 SPEED = 1;
-    char coord_msg[50];
-
-    consoleDrawText(0, 0, "testing");
 
     while (1)
     {
         pad = padsCurrent(0);
-        if (pad)
+        if (pad && (pad & KEY_L))
         {
             if (pad & KEY_UP)
                 y -= SPEED;
@@ -42,8 +40,7 @@ void main()
         }
 
         bgSetScroll(0, x, y);
-        sprintf(coord_msg, "x: %u, y: %u\n", (u32)x, (u32)y);
-        consoleNocashMessage(coord_msg);
+        consoleDrawText(0, 1, "x: %u, y: %u        ", (u32)x, (u32)y);
         WaitForVBlank();
     }
 }
