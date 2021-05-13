@@ -3,6 +3,7 @@
 #include "background.h"
 #include "vblank.h"
 #include "data.h"
+#include "sprite.h"
 
 // IMPORTANT:
 // Changing which pallette the BGs use is done via GFX compilation process
@@ -11,18 +12,18 @@
 void main()
 {
     // Initialize SNES
-    consoleInit();
+    //consoleInit();
 
     initBackground();
-    bgSetEnable(2);
-    consoleInitText(2, 0, &gfx_font_pic);
-    consoleSetTextCol(RGB15(0, 0, 31), RGB15(0, 31, 0));
+    // bgSetEnable(2);
+    // consoleInitText(2, 0, &gfx_font_pic);
+    // consoleSetTextCol(RGB15(0, 0, 31), RGB15(0, 31, 0));
 
-    u16 x = 256;
+    u16 x = 0;
     u16 y = 0;
     u16 pad;
 
-    u8 SPEED = 1;
+    u8 SPEED = 3;
 
     while (1)
     {

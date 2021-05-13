@@ -19,6 +19,12 @@ scrollingArgs = [
 # -pc4 = 4bpp
 fontArgs = "-n -gs8 -pc4 -mR! -m! -p!".split()
 
+spriteArgs = "-gs16 -pc16 -po16 -n".split()
+# gs16 because we have 16 pix width
+# pc16 because we can only use 16 colors
+# po16 because we are going to use only one palette of 16 colors
+# n because we do not have a border around the sprites
+
 graphics = [  #
     {
         "glob": "backgrounds/*.bmp",
@@ -28,6 +34,10 @@ graphics = [  #
         "glob": "backgrounds/scrolling/*.bmp",
         "args": scrollingArgs
     },  #
+    {
+        "glob": "sprites/fighters/**/*.bmp",
+        "args": spriteArgs
+    },
     {
         "glob": "fonts/*.bmp",
         "args": fontArgs
