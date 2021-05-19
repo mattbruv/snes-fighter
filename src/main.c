@@ -29,9 +29,29 @@ void main()
 
     u8 SPEED = 3;
 
+    char pad_str[17] = "0000000000000000\0";
+    u8 i = 0;
+
     while (1)
     {
         pad = padsCurrent(0);
+
+        if (pad != prev)
+        {
+            for (i = 0; i < 16; i++)
+            {
+                if (pad & (1 << i))
+                {
+                    pad_str[i] = '1';
+                }
+                else
+                {
+                    pad_str[i] = '0';
+                }
+            }
+            consoleDrawText(1, 23, "%s", pad_str);
+        }
+
         if (pad)
         {
             if (pad & KEY_UP)
@@ -44,9 +64,9 @@ void main()
                 x += SPEED;
 
             if ((pad & KEY_X) && ((prev & KEY_X) == 0))
-            {
-                SPEED = (SPEED + 1 > 50) ? SPEED + 1 : SPEED;
-            }
+                SPEED = (SPEED + 1 <= 50) ? SPEED + 1 : 50;
+            if ((pad & KEY_Y) && ((prev & KEY_Y) == 0))
+                SPEED = ((s8)(SPEED - 1) >= 0) ? SPEED - 1 : 0;
 
             if ((pad & KEY_A) && ((prev & KEY_A) == 0))
             {
@@ -63,8 +83,8 @@ void main()
             }
 
             bgSetScroll(1, x, y);
-            consoleDrawText(1, 27, "x: %u y: %u     ", (u32)x % (256 * 2), (u32)y % 256);
-            consoleDrawText(1, 26, "speed: %u   ", (u32)SPEED);
+            consoleDrawText(1, 26, "x: %u y: %u     ", (u32)x % (256 * 2), (u32)y % 256);
+            consoleDrawText(1, 25, "speed: %u   ", (u32)SPEED);
         }
         prev = pad;
 
