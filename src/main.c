@@ -39,7 +39,7 @@ void main()
                 x += SPEED;
         }
 
-        bgSetScroll(0, x, y);
+        bgSetScroll(1, x, y);
         WaitForVBlank();
     }
 }
