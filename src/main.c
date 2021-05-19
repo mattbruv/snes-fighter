@@ -12,12 +12,11 @@
 void main()
 {
     // Initialize SNES
-    //consoleInit();
-
+    consoleInit();
     initBackground();
-    // bgSetEnable(2);
-    // consoleInitText(2, 0, &gfx_font_pic);
-    // consoleSetTextCol(RGB15(0, 0, 31), RGB15(0, 31, 0));
+
+    consoleInitText(0, 0, &gfx_font_pic);
+    consoleDrawText(1, 1, "testing");
 
     u16 x = 0;
     u16 y = 0;
@@ -41,7 +40,6 @@ void main()
         }
 
         bgSetScroll(0, x, y);
-        consoleDrawText(0, 1, "x: %u, y: %u        ", (u32)x, (u32)y);
         WaitForVBlank();
     }
 }

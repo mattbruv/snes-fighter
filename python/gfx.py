@@ -17,7 +17,7 @@ scrollingArgs = [
 ]
 
 # -pc4 = 4bpp
-fontArgs = "-n -gs8 -pc4 -mR! -m! -p!".split()
+fontArgs = "-n -gs8 -po2 -pc16 -mR! -m! -p!".split()
 
 spriteArgs = "-gs16 -pc16 -po16 -n".split()
 # gs16 because we have 16 pix width
