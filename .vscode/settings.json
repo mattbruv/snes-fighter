@@ -3,9 +3,11 @@
         "C:\\snesdev\\pvsneslib\\include"
     ],
     "files.associations": {
+        "*.s": "asm-intel-x86-generic",
         "snes.h": "c",
         "data.h": "c",
-        "vblank.h": "c"
+        "vblank.h": "c",
+        "background.h": "c"
     },
     "python.formatting.provider": "yapf",
     "files.watcherExclude": {
