@@ -3,12 +3,15 @@
 
 void initSprites()
 {
-    oamInitGfxSet(&gfx_matt_idle_01_pic, gfx_matt_idle_01_pic_size, &gfx_matt_idle_01_pal,
-                  gfx_matt_idle_01_pal_size, 0, (0x4000 * 1), OBJ_SIZE16);
+    return;
+    //oamInitGfxSet(&gfx_matt_idle_01_pic, gfx_matt_idle_01_pic_size, &gfx_matt_idle_01_pal,
+    //             gfx_matt_idle_01_pal_size, 0, (0x4000 * 1), OBJ_SIZE16);
 }
 
 void updateSprites()
 {
+    return;
+    /*
     u16 col = 0;
     u16 row = 0;
     for (row = 0; row < 11; row++)
@@ -20,4 +23,5 @@ void updateSprites()
             oamSetEx(id, OBJ_SIZE16, OBJ_SHOW);
         }
     }
+    */
 }

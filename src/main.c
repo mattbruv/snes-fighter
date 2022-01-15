@@ -3,7 +3,7 @@
 #include "background.h"
 #include "vblank.h"
 #include "data.h"
-#include "sprite.h"
+// #include "sprite.h"
 
 // IMPORTANT:
 // Changing which pallette the BGs use is done via GFX compilation process
