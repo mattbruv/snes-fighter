@@ -3,5 +3,6 @@
 
 void initSprites();
 void updateSprites();
+void tickSprite();
 
 #endif

@@ -1,6 +1,26 @@
 #include <snes.h>
 #include "data.h"
 
+typedef struct
+{
+    u8* picAddr;
+    u8* palAddr;
+    u16 picSize;
+    u16 palSize;
+} AnimFrame;
+
+#define MAX_FRAMES 4
+
+AnimFrame frames[MAX_FRAMES];
+
+u8 reverse = 0;
+u16 frameDelay = 30;
+u16 frameCount = 0;
+u8 currentFrame = 0;
+
+//    oamInitGfxSet(&gfx_matt_idle_01_pic, gfx_matt_idle_01_pic_size, &gfx_matt_idle_01_pal,
+//                 gfx_matt_idle_01_pal_size, 0, 0x2000, OBJ_SIZE8_L16);
+
 /*
     sprite height/widths need to be aligned by 16 I think...
 
@@ -28,8 +48,66 @@
 
 */
 
+void loadSprite(AnimFrame* frame)
+{
+    oamInitGfxSet(frame->picAddr, frame->picSize, frame->palAddr, frame->palSize, 0, 0x2000,
+                  OBJ_SIZE8_L16);
+    //oamInitGfxSet(&gfx_matt_idle_01_pic, gfx_matt_idle_01_pic_size, &gfx_matt_idle_01_pal,
+    //             gfx_matt_idle_01_pal_size, 0, 0x2000, OBJ_SIZE8_L16);
+}
+
+char message[200];
+
+void tickSprite()
+{
+    if (++frameCount > frameDelay)
+    {
+        /*
+        if (reverse)
+            currentFrame--;
+        else
+            currentFrame++;
+            */
+
+        if (++currentFrame >= MAX_FRAMES) // 0 - 1 should wrap around.. || currentFrame < 0)
+        {
+            currentFrame = 0;
+        }
+
+        sprintf(message, "%u\n", currentFrame);
+        consoleNocashMessage(message);
+
+        loadSprite(&frames[currentFrame]);
+        frameCount = 0;
+    }
+}
+
+void seedFrames()
+{
+    frames[0].picAddr = &gfx_matt_idle_01_pic;
+    frames[0].palAddr = &gfx_matt_idle_01_pal;
+    frames[0].picSize = gfx_matt_idle_01_pic_size;
+    frames[0].palSize = gfx_matt_idle_01_pal_size;
+
+    frames[1].picAddr = &gfx_matt_idle_02_pic;
+    frames[1].palAddr = &gfx_matt_idle_02_pal;
+    frames[1].picSize = gfx_matt_idle_02_pic_size;
+    frames[1].palSize = gfx_matt_idle_02_pal_size;
+
+    frames[2].picAddr = &gfx_matt_idle_03_pic;
+    frames[2].palAddr = &gfx_matt_idle_03_pal;
+    frames[2].picSize = gfx_matt_idle_03_pic_size;
+    frames[2].palSize = gfx_matt_idle_03_pal_size;
+
+    frames[3].picAddr = &gfx_matt_idle_04_pic;
+    frames[3].palAddr = &gfx_matt_idle_04_pal;
+    frames[3].picSize = gfx_matt_idle_04_pic_size;
+    frames[3].palSize = gfx_matt_idle_04_pal_size;
+}
+
 void initSprites()
 {
+    seedFrames();
     oamInitGfxSet(&gfx_matt_idle_01_pic, gfx_matt_idle_01_pic_size, &gfx_matt_idle_01_pal,
                   gfx_matt_idle_01_pal_size, 0, 0x2000, OBJ_SIZE8_L16);
 
@@ -37,8 +115,7 @@ void initSprites()
     u16 y = 0;
     u16 spriteCount = 0;
     u16 id = 0;
-    u16 gfxOffset = 0;
-    u8 message[200];
+    //u8 message[200];
     u16 rows = 0;
     u16 offset = 0;
 
@@ -51,19 +128,14 @@ void initSprites()
 
             offset = ((spriteCount * 2)) + rows * 16;
             oamSet(id, x * 16, y * 16, 3, 0, 0, offset, 0);
-            sprintf(message, "id: %hu (%hu) gfxOffset: %hu rows: %hu offset: %hu \n", id, (id / 4),
-                    gfxOffset, rows, offset);
-            consoleNocashMessage(message);
+            //sprintf(message, "id: %hu (%hu) gfxOffset: %hu rows: %hu offset: %hu \n", id, (id / 4),
+            //  gfxOffset, rows, offset);
+            //consoleNocashMessage(message);
             oamSetEx(id, OBJ_LARGE, OBJ_SHOW);
             spriteCount++;
         }
-        //WaitForVBlank();
-        if (spriteCount % 6 == 0)
-        {
-            gfxOffset += 16;
-        }
-        sprintf(message, "spriteCount: %hu gfxOffset: %hu\n", spriteCount, gfxOffset);
-        consoleNocashMessage(message);
+        //sprintf(message, "spriteCount: %hu gfxOffset: %hu\n", spriteCount, gfxOffset);
+        //consoleNocashMessage(message);
         x = 0;
     }
 }
@@ -71,17 +143,4 @@ void initSprites()
 void updateSprites()
 {
     return;
-    /*
-    u16 col = 0;
-    u16 row = 0;
-    for (row = 0; row < 11; row++)
-    {
-        for (col = 0; col < 4; col++)
-        {
-            u16 id = (row * 4) + col;
-            oamSet(id, 256, 50, 0, 0, 0, id, 0);
-            oamSetEx(id, OBJ_SIZE16, OBJ_SHOW);
-        }
-    }
-    */
 }
