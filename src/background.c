@@ -37,10 +37,11 @@ void initBackground()
 
 void bgDemo()
 {
-    bgInitTileSet(1, &gfx_demo_pic, &gfx_demo_pal, 1, gfx_demo_pic_size, gfx_demo_pal_size,
-                  BG_16COLORS, 0x1000);
+    bgInitTileSet(1, &gfx_plainBG_pic, &gfx_plainBG_pal, 0, gfx_plainBG_pic_size,
+                  gfx_plainBG_pal_size, BG_16COLORS, 0x1000);
 
-    bgInitMapSet(1, &gfx_demo_map, gfx_demo_map_size, SC_64x32, 0x0000);
+    bgInitMapSet(1, &gfx_plainBG_map, gfx_plainBG_map_size, SC_32x32, 0x0000);
+    bgSetScroll(1, 0, 8 * 1);
     //bgSetMapPtr(1, 0x0000, gfx_demo_pic_size);
 }
 

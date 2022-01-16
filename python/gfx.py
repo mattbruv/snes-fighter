@@ -31,6 +31,10 @@ graphics = [  #
         "args": defaultArgs
     },  #
     {
+        "glob": "backgrounds/static/*.bmp",
+        "args": defaultArgs
+    },
+    {
         "glob": "backgrounds/scrolling/*.bmp",
         "args": scrollingArgs
     },  #
