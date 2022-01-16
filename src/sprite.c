@@ -14,7 +14,7 @@ typedef struct
 AnimFrame frames[MAX_FRAMES];
 
 u8 reverse = 0;
-u16 frameDelay = 30;
+u16 frameDelay = 3;
 u16 frameCount = 0;
 u8 currentFrame = 0;
 
@@ -62,19 +62,27 @@ void tickSprite()
 {
     if (++frameCount > frameDelay)
     {
-        /*
         if (reverse)
             currentFrame--;
         else
             currentFrame++;
-            */
 
-        if (++currentFrame >= MAX_FRAMES) // 0 - 1 should wrap around.. || currentFrame < 0)
+        if (currentFrame >= MAX_FRAMES) // 0 - 1 should wrap around.. || currentFrame < 0)
         {
-            currentFrame = 0;
+            if (reverse == 1)
+            {
+                reverse = 0;
+                currentFrame = 1;
+                sprintf(message, "reverse: %u frame: %u\n", (u32)reverse, (u32)currentFrame);
+            }
+            else
+            {
+                reverse = 1;
+                currentFrame -= 2;
+                sprintf(message, "reverse: %u frame: %u\n", (u32)reverse, (u32)currentFrame);
+            }
         }
 
-        sprintf(message, "%u\n", currentFrame);
         consoleNocashMessage(message);
 
         loadSprite(&frames[currentFrame]);
