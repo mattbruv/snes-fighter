@@ -48,12 +48,12 @@ u8 currentFrame = 0;
 
 */
 
+#define SPRITE_ADDR 0x6000
+
 void loadSprite(AnimFrame* frame)
 {
-    oamInitGfxSet(frame->picAddr, frame->picSize, frame->palAddr, frame->palSize, 0, 0x2000,
+    oamInitGfxSet(frame->picAddr, frame->picSize, frame->palAddr, frame->palSize, 0, SPRITE_ADDR,
                   OBJ_SIZE8_L16);
-    //oamInitGfxSet(&gfx_matt_idle_01_pic, gfx_matt_idle_01_pic_size, &gfx_matt_idle_01_pal,
-    //             gfx_matt_idle_01_pal_size, 0, 0x2000, OBJ_SIZE8_L16);
 }
 
 char message[200];
@@ -117,7 +117,7 @@ void initSprites()
 {
     seedFrames();
     oamInitGfxSet(&gfx_matt_idle_01_pic, gfx_matt_idle_01_pic_size, &gfx_matt_idle_01_pal,
-                  gfx_matt_idle_01_pal_size, 0, 0x2000, OBJ_SIZE8_L16);
+                  gfx_matt_idle_01_pal_size, 0, SPRITE_ADDR, OBJ_SIZE8_L16);
 
     u16 x = 0;
     u16 y = 0;
