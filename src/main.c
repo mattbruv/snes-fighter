@@ -12,8 +12,9 @@
 void main()
 {
     // Initialize SNES
-    // consoleInit();
-    // consoleInitText(0, 0, &gfx_font_pic);
+    consoleInit();
+    dmaClearVram();
+    WaitForVBlank();
 
     initBackground();
 
