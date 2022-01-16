@@ -22,10 +22,11 @@ void initSprites()
         for (x; x < 3; x++)
         {
             id = spriteCount * 4;
-            oamSet(id, x * 16, y * 16, 3, 0, 0, id * 0x40, 0);
+            oamSet(id, x * 16, y * 16, 3, 0, 0, spriteCount * 2, 0);
             oamSetEx(id, OBJ_LARGE, OBJ_SHOW);
             spriteCount++;
         }
+        //WaitForVBlank();
         x = 0;
     }
 }
