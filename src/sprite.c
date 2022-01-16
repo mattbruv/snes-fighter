@@ -4,6 +4,8 @@
 /*
     sprite height/widths need to be aligned by 16 I think...
 
+    using larger sprites would mean less for loop iterations
+    consider this if speed becomes an issue
 
 */
 
@@ -16,17 +18,33 @@ void initSprites()
     u16 y = 0;
     u16 spriteCount = 0;
     u16 id = 0;
+    u16 gfxOffset = 0;
+    u8 message[200];
+    u16 rows = 0;
+    u16 offset = 0;
 
-    for (y; y < 7; y++)
+    for (y; y < 8; y++)
     {
         for (x; x < 3; x++)
         {
+            rows = (spriteCount * 2) / 16;
             id = spriteCount * 4;
-            oamSet(id, x * 16, y * 16, 3, 0, 0, spriteCount * 2, 0);
+
+            offset = ((spriteCount * 2)) + rows * 16;
+            oamSet(id, x * 16, y * 16, 3, 0, 0, offset, 0);
+            sprintf(message, "id: %hu (%hu) gfxOffset: %hu rows: %hu offset: %hu \n", id, (id / 4),
+                    gfxOffset, rows, offset);
+            consoleNocashMessage(message);
             oamSetEx(id, OBJ_LARGE, OBJ_SHOW);
             spriteCount++;
         }
         //WaitForVBlank();
+        if (spriteCount % 6 == 0)
+        {
+            gfxOffset += 16;
+        }
+        sprintf(message, "spriteCount: %hu gfxOffset: %hu\n", spriteCount, gfxOffset);
+        consoleNocashMessage(message);
         x = 0;
     }
 }
