@@ -17,6 +17,9 @@ void main()
     WaitForVBlank();
 
     initBackground();
+    WaitForVBlank();
+
+    initSprites();
 
     while (1)
     {
