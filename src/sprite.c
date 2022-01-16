@@ -73,17 +73,17 @@ void tickSprite()
             {
                 reverse = 0;
                 currentFrame = 1;
-                sprintf(message, "reverse: %u frame: %u\n", (u32)reverse, (u32)currentFrame);
+                //sprintf(message, "reverse: %u frame: %u\n", (u32)reverse, (u32)currentFrame);
             }
             else
             {
                 reverse = 1;
                 currentFrame -= 2;
-                sprintf(message, "reverse: %u frame: %u\n", (u32)reverse, (u32)currentFrame);
+                //sprintf(message, "reverse: %u frame: %u\n", (u32)reverse, (u32)currentFrame);
             }
         }
 
-        consoleNocashMessage(message);
+        //consoleNocashMessage(message);
 
         loadSprite(&frames[currentFrame]);
         frameCount = 0;
