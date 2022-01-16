@@ -4,6 +4,5 @@
 void initBackground();
 void bgDemo();
 void bgMichael();
-void bgSexyBitch();
 
 #endif

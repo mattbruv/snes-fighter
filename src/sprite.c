@@ -5,7 +5,7 @@ void initSprites()
 {
     return;
     //oamInitGfxSet(&gfx_matt_idle_01_pic, gfx_matt_idle_01_pic_size, &gfx_matt_idle_01_pal,
-    //             gfx_matt_idle_01_pal_size, 0, (0x4000 * 1), OBJ_SIZE16);
+    //             gfx_matt_idle_01_pal_size, 0, (0x4000 * 1), OBJ_SIZE8_L16);
 }
 
 void updateSprites()
