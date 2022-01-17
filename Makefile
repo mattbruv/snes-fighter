@@ -10,7 +10,9 @@ include snes_rules.mk
 # ROMNAME is used in snes_rules file
 export ROMNAME := fighter
 
-all: preProcess $(ROMNAME).sfc
+all: $(ROMNAME).sfc
+
+gfx: preProcess
 
 preProcess:
 	python python/build.py
