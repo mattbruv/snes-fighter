@@ -9,12 +9,12 @@ typedef struct
     u16 palSize;
 } AnimFrame;
 
-#define MAX_FRAMES 4
+#define MAX_FRAMES 10
 
 AnimFrame frames[MAX_FRAMES];
 
 u8 reverse = 0;
-u16 frameDelay = 3;
+u16 frameDelay = 2;
 u16 frameCount = 0;
 u8 currentFrame = 0;
 
@@ -92,25 +92,55 @@ void tickSprite()
 
 void seedFrames()
 {
-    frames[0].picAddr = &gfx_matt_idle_01_pic;
-    frames[0].palAddr = &gfx_matt_idle_01_pal;
-    frames[0].picSize = gfx_matt_idle_01_pic_size;
-    frames[0].palSize = gfx_matt_idle_01_pal_size;
+    frames[0].picAddr = &gfx_evan_idle_01_pic;
+    frames[0].palAddr = &gfx_evan_idle_01_pal;
+    frames[0].picSize = gfx_evan_idle_01_pic_size;
+    frames[0].palSize = gfx_evan_idle_01_pal_size;
 
-    frames[1].picAddr = &gfx_matt_idle_02_pic;
-    frames[1].palAddr = &gfx_matt_idle_02_pal;
-    frames[1].picSize = gfx_matt_idle_02_pic_size;
-    frames[1].palSize = gfx_matt_idle_02_pal_size;
+    frames[1].picAddr = &gfx_evan_idle_02_pic;
+    frames[1].palAddr = &gfx_evan_idle_02_pal;
+    frames[1].picSize = gfx_evan_idle_02_pic_size;
+    frames[1].palSize = gfx_evan_idle_02_pal_size;
 
-    frames[2].picAddr = &gfx_matt_idle_03_pic;
-    frames[2].palAddr = &gfx_matt_idle_03_pal;
-    frames[2].picSize = gfx_matt_idle_03_pic_size;
-    frames[2].palSize = gfx_matt_idle_03_pal_size;
+    frames[2].picAddr = &gfx_evan_idle_03_pic;
+    frames[2].palAddr = &gfx_evan_idle_03_pal;
+    frames[2].picSize = gfx_evan_idle_03_pic_size;
+    frames[2].palSize = gfx_evan_idle_03_pal_size;
 
-    frames[3].picAddr = &gfx_matt_idle_04_pic;
-    frames[3].palAddr = &gfx_matt_idle_04_pal;
-    frames[3].picSize = gfx_matt_idle_04_pic_size;
-    frames[3].palSize = gfx_matt_idle_04_pal_size;
+    frames[3].picAddr = &gfx_evan_idle_04_pic;
+    frames[3].palAddr = &gfx_evan_idle_04_pal;
+    frames[3].picSize = gfx_evan_idle_04_pic_size;
+    frames[3].palSize = gfx_evan_idle_04_pal_size;
+
+    frames[4].picAddr = &gfx_evan_idle_05_pic;
+    frames[4].palAddr = &gfx_evan_idle_05_pal;
+    frames[4].picSize = gfx_evan_idle_05_pic_size;
+    frames[4].palSize = gfx_evan_idle_05_pal_size;
+
+    frames[5].picAddr = &gfx_evan_idle_06_pic;
+    frames[5].palAddr = &gfx_evan_idle_06_pal;
+    frames[5].picSize = gfx_evan_idle_06_pic_size;
+    frames[5].palSize = gfx_evan_idle_06_pal_size;
+
+    frames[6].picAddr = &gfx_evan_idle_07_pic;
+    frames[6].palAddr = &gfx_evan_idle_07_pal;
+    frames[6].picSize = gfx_evan_idle_07_pic_size;
+    frames[6].palSize = gfx_evan_idle_07_pal_size;
+
+    frames[7].picAddr = &gfx_evan_idle_08_pic;
+    frames[7].palAddr = &gfx_evan_idle_08_pal;
+    frames[7].picSize = gfx_evan_idle_08_pic_size;
+    frames[7].palSize = gfx_evan_idle_08_pal_size;
+
+    frames[8].picAddr = &gfx_evan_idle_09_pic;
+    frames[8].palAddr = &gfx_evan_idle_09_pal;
+    frames[8].picSize = gfx_evan_idle_09_pic_size;
+    frames[8].palSize = gfx_evan_idle_09_pal_size;
+
+    frames[9].picAddr = &gfx_evan_idle_10_pic;
+    frames[9].palAddr = &gfx_evan_idle_10_pal;
+    frames[9].picSize = gfx_evan_idle_10_pic_size;
+    frames[9].palSize = gfx_evan_idle_10_pal_size;
 }
 
 void initSprites()
@@ -129,7 +159,7 @@ void initSprites()
 
     for (y; y < 8; y++)
     {
-        for (x; x < 3; x++)
+        for (x; x < 4; x++)
         {
             rows = (spriteCount * 2) / 16;
             id = spriteCount * 4;
