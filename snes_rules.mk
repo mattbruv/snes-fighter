@@ -66,6 +66,7 @@ export OFILES	:=	$(BINFILES:.bin=.obj) $(CFILES:.c=.obj) $(SFILES:.asm=.obj)
 	@echo Compiling to .ps ... $(notdir $<)
 	$(CC) $(CFLAGS) -Wall -c $< -o $@
 
+.PRECIOUS: %.asm
 #---------------------------------------------------------------------------------
 # for libc.asm file only, we need to use -x flag of wla dx to create labels SECTIONSTART_[section name]
 # and SECTIONEND_[sectionname] at the beginning and end of each section.
