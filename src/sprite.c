@@ -135,7 +135,7 @@ void initSprites()
             id = spriteCount * 4;
 
             offset = ((spriteCount * 2)) + rows * 16;
-            oamSet(id, x * 16 + 50, y * 16 + 75, 3, 1, 0, offset, 0);
+            oamSet(id, x * 16 + 50, y * 16 + 75, 3, 0, 0, offset, 0);
             //sprintf(message, "id: %hu (%hu) gfxOffset: %hu rows: %hu offset: %hu \n", id, (id / 4),
             //  gfxOffset, rows, offset);
             //consoleNocashMessage(message);
