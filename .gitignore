@@ -9,3 +9,4 @@ src/data.h
 __pycache__
 raw
 src/*.asm
+roms

@@ -14,7 +14,7 @@ typedef struct
 AnimFrame frames[MAX_FRAMES];
 
 u8 reverse = 0;
-u16 frameDelay = 2;
+u16 frameDelay = 0;
 u16 frameCount = 0;
 u8 currentFrame = 0;
 
@@ -58,8 +58,12 @@ void loadSprite(AnimFrame* frame)
 
 char message[200];
 
+void moveSprites();
+
 void tickSprite()
 {
+    moveSprites();
+
     if (++frameCount > frameDelay)
     {
         if (reverse)
@@ -143,11 +147,44 @@ void seedFrames()
     frames[9].palSize = gfx_evan_idle_10_pal_size;
 }
 
+u8 xOff = 0;
+u8 yOff = 0;
+
+void moveSprites()
+{
+    u16 x = 0;
+    u16 y = 0;
+    u16 spriteCount = 0;
+    u16 id = 0;
+
+    for (y; y < 8; y++)
+    {
+        for (x; x < 4; x++)
+        {
+            id = spriteCount * 4;
+            oamMemory[id] = x * 16 + xOff; // xPos
+            oamMemory[id + 1] = y * 16 + yOff; // yPos
+
+            //offset = ((spriteCount * 2)) + rows * 16;
+            //oamSet(id, x * 16 + 50, y * 16 + 75, 3, 0, 0, offset, 0);
+            spriteCount++;
+        }
+        x = 0;
+    }
+
+    // increase offsets
+    //    if (rand() > 65535 / 2)
+    {
+        xOff += 2;
+        yOff += 2;
+    }
+}
+
 void initSprites()
 {
     seedFrames();
-    oamInitGfxSet(&gfx_matt_idle_01_pic, gfx_matt_idle_01_pic_size, &gfx_matt_idle_01_pal,
-                  gfx_matt_idle_01_pal_size, 0, SPRITE_ADDR, OBJ_SIZE8_L16);
+    //oamInitGfxSet(&gfx_matt_idle_01_pic, gfx_matt_idle_01_pic_size, &gfx_matt_idle_01_pal,
+    //             gfx_matt_idle_01_pal_size, 0, SPRITE_ADDR, OBJ_SIZE8_L16);
 
     u16 x = 0;
     u16 y = 0;
