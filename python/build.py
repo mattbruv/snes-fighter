@@ -25,7 +25,7 @@ def writeHeader(data):
         source += "extern char " + label + ", "
         source += label + "_end;\n"
         source += "#define " + label + "_size "
-        source += "(&" + label + "_end - &" + label + ")\n\n"
+        source += "(&" + label + "_end - &" + label + ")\n"
     open("src/data.h", "w").write(source)
 
 
