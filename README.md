@@ -18,3 +18,5 @@ The library is quite finnicky to get set up.
 [SNES Specs and documentation](https://problemkaputt.de/fullsnes.htm)
 
 [pvsneslib](https://github.com/alekmaul/pvsneslib) C SNES library
+
+[Yo-Yo Shuriken](https://drludos.itch.io/yo-yo-shuriken/devlog/147478/making-a-snes-game-in-2020), a devlog about making a SNES game with PVSNESLib
