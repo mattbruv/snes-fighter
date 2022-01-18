@@ -16,7 +16,7 @@ The library is quite finnicky to get set up.
 
 # Game Design
 I have no experience with fighting games, so this part is going to come once:
-* Fundamental parts of the rendering engine working.
+* Fundamental parts of the rendering engine are working.
 * I understand the limitations of the SNES better
 * I gain experience with other fighting games to know what base features to add.
 
@@ -48,6 +48,11 @@ The only downside I can think of right now is that when the sprites go off scree
 So in the worst case, the boundaries of the screen for fighters will be +/- 32 pixels of blank space on both sides of the screen to prevent sprite graphical glitches.
 This leaves `256 - 32 * 2` = `192` pixels, or 75% of screen space for the fighters (again, worst case).
 in 16x16 mode, the worst case would be 87.5% screen space.
+
+## ROM Size
+It doesn't seem like ROM size is going to be an issue, and it looks like
+I will be able to at least use up to 4MB if needed, so I'm not too worried
+about this for now.
 
 ## VRAM Partitioning
 
