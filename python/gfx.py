@@ -10,7 +10,7 @@ scrollingArgs = [
     "-pc16",  # The number of colors to use: 16
     "-n",  # no border
     "-gs8",  # Size of image blocks in pixels: 8
-    "-pe1",  # The palette entry to add to map tiles (0 to 16)
+    "-pe0",  # The palette entry to add to map tiles (0 to 16)
     "-fbmp",  # convert a bmp
     "-mp",  # Convert the whole picture with high priority
     "-m32p"  # Generate tile map organized in pages of 32x32 (good for scrolling)

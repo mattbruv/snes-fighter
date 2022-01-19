@@ -17,14 +17,19 @@ void main()
 
     // Initialize game engine data
     initScrollBackgrounds();
+    initSprites();
 
-    setScreenOn();
+    WaitForVBlank();
 
     // Set up test game state
     setScrollBackground();
 
+    bgSetEnable(0);
+    setScreenOn();
+
     while (1)
     {
+        tickSprite();
         WaitForVBlank();
     }
 }

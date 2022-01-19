@@ -13,7 +13,12 @@
 // 8 * 4 * (32 * 32) = 0x8000
 // 8 * 4 * (32 * 4) = 0x1000
 // Total VRAM = 0x10000 - 0x9000 = 0x7000 BYTES, not SHORTS
-#define TILE_ADDRESS 0x7000 / 2
+
+// WARNING!
+// The Tile Address MUST BE ALONG A 0x1000 BOUNDARY. You can't do 0x1000 / 2,
+// or else the SNES will not render the graphics correctly, even though
+// they will end up at (0x1000 / 2) in memory...
+#define TILE_ADDRESS 0x1000 // 0x7000 / 2
 #define MAP_ADDRESS TILE_ADDRESS - (0x1000 / 2)
 
 typedef struct
@@ -57,8 +62,13 @@ void setScrollBackground()
         else
             bgSetDisable(i);
     }
-    setScreenOn();
+
+    setScreenOn(); // needed after enabling/disabling the backgrounds
+    //bgSetEnable(1);
+    //bgSetScroll(1, 0, 0);
     WaitForVBlank();
+    //dmaCopyVram(bg->mapAddress, MAP_ADDRESS + 0x800 / 2, bg->mapSize / 2);
+    //WaitForVBlank;
 }
 
 /*

@@ -14,7 +14,7 @@ typedef struct
 AnimFrame frames[MAX_FRAMES];
 
 u8 reverse = 0;
-u16 frameDelay = 0;
+u16 frameDelay = 2;
 u16 frameCount = 0;
 u8 currentFrame = 0;
 
@@ -62,7 +62,7 @@ void moveSprites();
 
 void tickSprite()
 {
-    moveSprites();
+    //    moveSprites();
 
     if (++frameCount > frameDelay)
     {
