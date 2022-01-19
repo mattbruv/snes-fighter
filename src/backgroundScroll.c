@@ -64,31 +64,15 @@ void setScrollBackground()
     }
 
     setScreenOn(); // needed after enabling/disabling the backgrounds
-    //bgSetEnable(1);
-    //bgSetScroll(1, 0, 0);
     WaitForVBlank();
-    //dmaCopyVram(bg->mapAddress, MAP_ADDRESS + 0x800 / 2, bg->mapSize / 2);
-    //WaitForVBlank;
 }
 
-/*
-void bgInitMapSet(u8 bgNumber, u8 *mapSource, u16 mapSize, u8 sizeMode, u16 address)
+u8 i = 0;
 
-void bgInitTileSet(
-    u8 bgNumber,
-    u8 *tileSource,
-    u8 *tilePalette,
-    u8 paletteEntry,
-    u16 tileSize,
-    u16 paletteSize,
-    u16 colorMode,
-    u16 address)
-
-    bgInitTileSet(1, &gfx_pee_pic, &gfx_pee_pal, 1, gfx_pee_pic_size, gfx_pee_pal_size, BG_16COLORS,
-                  0x1000);
-
-    bgInitMapSet(1, &gfx_pee_map, gfx_pee_map_size, SC_64x32, 0x0000);
-*/
+void scrollBGUpdate()
+{
+    dmaCopyVram(bgCurrent->bg[1].tileAddress + (8 * 4 * i++), 0x5000, 8 * 4 * 32 * 2);
+}
 
 void initScrollBackgrounds()
 {

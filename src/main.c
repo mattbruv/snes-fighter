@@ -24,11 +24,11 @@ void main()
     // Set up test game state
     setScrollBackground();
 
-    bgSetEnable(0);
     setScreenOn();
 
     while (1)
     {
+        scrollBGUpdate();
         tickSprite();
         WaitForVBlank();
     }

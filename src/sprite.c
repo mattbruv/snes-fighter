@@ -18,9 +18,6 @@ u16 frameDelay = 2;
 u16 frameCount = 0;
 u8 currentFrame = 0;
 
-//    oamInitGfxSet(&gfx_matt_idle_01_pic, gfx_matt_idle_01_pic_size, &gfx_matt_idle_01_pal,
-//                 gfx_matt_idle_01_pal_size, 0, 0x2000, OBJ_SIZE8_L16);
-
 /*
     sprite height/widths need to be aligned by 16 I think...
 

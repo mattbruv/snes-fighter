@@ -3,5 +3,6 @@
 
 void initScrollBackgrounds();
 void setScrollBackground();
+void scrollBGUpdate();
 
 #endif
