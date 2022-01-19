@@ -22,6 +22,46 @@ I have no experience with fighting games, so this part is going to come once:
 
 # Engine Specifications
 
+## Background
+
+
+***YET TO BE IMPLEMENTED***
+
+For the in-game background, I want it to scroll left to right
+to give more playing space for the fighters,
+as it seems like most fighting games scroll horizontally.
+
+I also want the backgrounds to look photo-realistic like the sprites,
+but this creates problems because photorealistic
+backgrounds take up a lot of space.
+The SNES was designed for tiled graphics, not random tiles with a lot of noise.
+
+My proposed solution is to have one designated area in VRAM for the background data.
+This area will hold 1 entire 32x32 map of unique tiles along with some padding tiles.
+The background will be "moved" by the scroll registers, and upon moving the
+scroll window close to the edge of the loaded map, an additional few rows
+will be populated with the data that should be in that area.
+
+Formula for calulating tile space needed:
+`8 * color_depth(in bits) * number_of_characters`
+
+* In my case, `8 * 4 * 32 * 32` = `32768` or `0x8000` bytes.
+This is exactly half of the VRAM.
+* Now if I add two additional columns on each side of the background as
+buffer columns, that is `8 * 4 * 32 * 4` = `4096` or `0x1000` bytes in
+dynamically loaded tiles.
+* 0x1000 additional bytes are needed for the 64x32 tile map.
+
+This gives us a total of `0xA000` bytes, or `40,960` bytes,
+which is 62.5% of the entire VRAM if used perfectly.
+
+This system does enable arbitrarily wide backgrounds though,
+so the tradeoff is probably worth it,
+since the only real cost is an extra `0x1000` bytes and
+some CPU cycles to move data around.
+
+
+
 ## Sprites
 
 For designing sprites and animation for general gameplay, I'm thinking small sprites of 16x16 and large sprites of 32x32.

@@ -16,6 +16,7 @@ void initBackground()
 
     bgDemo();
     setScreenOn();
+    WaitForVBlank();
 }
 
 /*
@@ -34,15 +35,14 @@ void initBackground()
     whereas NO$SNS only shows 0x7ff0 tile addresses
     an address in BSNES is (Address * 2)
 */
+u16 pal[50];
 
 void bgDemo()
 {
-    bgInitTileSet(1, &gfx_jim_pic, &gfx_jim_pal, 0, gfx_jim_pic_size, gfx_jim_pal_size, BG_16COLORS,
+    bgInitTileSet(1, &gfx_pee_pic, &gfx_pee_pal, 1, gfx_pee_pic_size, gfx_pee_pal_size, BG_16COLORS,
                   0x1000);
 
-    bgInitMapSet(1, &gfx_jim_map, gfx_jim_map_size, SC_64x32, 0x0000);
-    // bgSetScroll(1, 0, 8 * 1);
-    //bgSetMapPtr(1, 0x0000, gfx_demo_pic_size);
+    bgInitMapSet(1, &gfx_pee_map, gfx_pee_map_size, SC_64x32, 0x0000);
 }
 
 /*

@@ -14,16 +14,18 @@ void main()
     // Initialize SNES
     consoleInit();
     dmaClearVram();
+
     WaitForVBlank();
 
     initBackground();
-    WaitForVBlank();
 
-    initSprites();
+    setScreenOn();
+
+    //initSprites();
 
     while (1)
     {
-        tickSprite();
+        //   tickSprite();
         WaitForVBlank();
     }
 }
