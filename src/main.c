@@ -1,6 +1,6 @@
 #include <snes.h>
 
-#include "background.h"
+#include "backgroundScroll.h"
 #include "vblank.h"
 #include "data.h"
 #include "sprite.h"
@@ -15,13 +15,16 @@ void main()
     consoleInit();
     dmaClearVram();
 
-    initBackground();
+    // Initialize game engine data
+    initScrollBackgrounds();
 
-    //initSprites();
+    setScreenOn();
+
+    // Set up test game state
+    setScrollBackground();
 
     while (1)
     {
-        //   tickSprite();
         WaitForVBlank();
     }
 }
