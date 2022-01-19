@@ -3,6 +3,10 @@
 #include "background.h"
 #include "data.h"
 
+// IMPORTANT:
+// Changing which pallette the BGs use is done via GFX compilation process
+// * BGs always(?) use palette color #0 as the transparent color
+
 void initBackground()
 {
     consoleNocashMessage("Initializing Background..\n");
@@ -35,7 +39,6 @@ void initBackground()
     whereas NO$SNS only shows 0x7ff0 tile addresses
     an address in BSNES is (Address * 2)
 */
-u16 pal[50];
 
 void bgDemo()
 {

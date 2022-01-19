@@ -15,11 +15,7 @@ void main()
     consoleInit();
     dmaClearVram();
 
-    WaitForVBlank();
-
     initBackground();
-
-    setScreenOn();
 
     //initSprites();
 

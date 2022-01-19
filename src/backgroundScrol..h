@@ -1,0 +1,4 @@
+#ifndef BACKGROUNDSCROLL_H
+#define BACKGROUNDSCROLL_H
+
+#endif
