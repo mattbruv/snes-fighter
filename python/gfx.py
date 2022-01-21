@@ -6,6 +6,7 @@ from tools import GFX_TOOL, moveFilesToData
 defaultArgs = ["-pr", "-pc16", "-n", "-gs8", "-pe0", "-fbmp", "-m"]
 
 scrollingArgs = [
+    "-mR!", # No tile reduction (not advised)
     "-pr",  # Rearrange palette, and preserve palette numbers in the tilemap
     "-pc16",  # The number of colors to use: 16
     "-n",  # no border
