@@ -43,12 +43,14 @@ typedef struct
 ScrollBG lake;
 ScrollBG* currentScrollBG;
 
+u8 bufferTileMap[2 * 32 * 32 * 2];
+
 void setScrollBackground()
 {
     setMode(BG_MODE1, BG3_MODE1_PRORITY_HIGH);
 
     currentScrollBG = &lake;
-    BGInfo* bg = &currentScrollBG->bg[0];
+    BGInfo* bg = &currentScrollBG->bg[1];
     bgInitTileSet(BG_NUMBER, bg->tileAddress, bg->paletteAddress, BG_PAL_NUMBER, bg->tileSize,
                   bg->paletteSize, COLOR_MODE, TILE_ADDRESS);
     bgInitMapSet(BG_NUMBER, bg->mapAddress, bg->mapSize, BG_SIZE_MODE, MAP_ADDRESS);
@@ -64,25 +66,32 @@ void setScrollBackground()
     }
 
     setScreenOn(); // needed after enabling/disabling the backgrounds
-    WaitForVBlank();
-
-    // center this map in the 64x32 grid
-    WaitForVBlank();
-    //dmaCopyVram(bg->mapAddress, 0x1400 / 2, bg->mapSize);
-    bgSetScroll(BG_NUMBER, 128, 8 * 2);
-
-    // !!!!!!!!
-    // I'm actually not sure if my idea makes sense, or can be done....
-    // !!!!!!!!
+    bgSetScroll(BG_NUMBER, 0, 0);
 
     WaitForVBlank();
 }
 
-u8 i = 0;
+ScrollBG* bg = &lake;
+void initBuffer()
+{
+    u16 i = 0;
+    for (; i < bg->bg[1].mapSize; i++)
+    {
+        bufferTileMap[i] = bg->bg[1].mapAddress[i];
+    }
+}
 
+u8 done = 0;
 void scrollBGUpdate()
 {
-    //dmaCopyVram(currentScrollBG->bg[1].tileAddress + (8 * 4 * i++), 0x5000, 8 * 4 * 32 * 2);
+    if (done++ % 2 == 0)
+    {
+    }
+    else
+    {
+        dmaCopyVram(bufferTileMap, MAP_ADDRESS, sizeof(bufferTileMap));
+    }
+    //WaitForVBlank();
 }
 
 void initScrollBackgrounds()
@@ -102,4 +111,6 @@ void initScrollBackgrounds()
     lake.bg[1].tileSize = gfx_lake_02_pic_size;
     lake.bg[1].paletteSize = gfx_lake_02_pal_size;
     lake.bg[1].mapSize = gfx_lake_02_map_size;
+
+    initBuffer();
 }

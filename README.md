@@ -27,6 +27,29 @@ I have no experience with fighting games, so this part is going to come once:
 
 ***YET TO BE IMPLEMENTED***
 
+Rotate bg graphics so that DMA copies columns instead of rows
+Hold a buffer of the current 64x32 tilemap, copy this to VRAM
+
+Tile maps don't have to map to VRAM data in a perfect 32x32 square...
+Any tile in the tile map can point to any area in VRAM.
+
+You don't have to move all of the tile data over to accomodate a new row
+you simply add the new row into VRAM, patch the tilemap to point to the new row,
+and once the old row is out of view, clear it so it can be used to load in a
+new row.
+
+the background in VRAM needs to be stored from top to bottom, left to right
+instead of left-to-right, top-to-bottom.
+
+Note: The image data might need to be rotated in processing to fit this pattern
+
+This makes it so that when we do DMA to copy new tiles into VRAM,
+we are copying an entire column instead of a row
+
+### Tile Size in VRAM
+8 * bitdepth (4 for 16 colors) * number of tiles
+
+
 Note:
 `-mR!` on the background forces tiles to be mapped properly...
 but it doesn't work for 32x32 maps, I get an error:
