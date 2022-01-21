@@ -18,3 +18,4 @@ preProcess:
 	python python/build.py
 
 clean: cleanBuildRes cleanRom cleanGfx
+	rm data -r

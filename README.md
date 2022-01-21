@@ -27,6 +27,18 @@ I have no experience with fighting games, so this part is going to come once:
 
 ***YET TO BE IMPLEMENTED***
 
+Note:
+`-mR!` on the background forces tiles to be mapped properly...
+but it doesn't work for 32x32 maps, I get an error:
+
+```
+data\lake_01.pic too big! 32768
+make: *** [Makefile:18: preProcess] Error 1
+```
+
+Perhaps I could do a 32x31 map, or 32x30?
+
+
 For the in-game background, I want it to scroll left to right
 to give more playing space for the fighters,
 as it seems like most fighting games scroll horizontally.
