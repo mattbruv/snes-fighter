@@ -1,3 +1,4 @@
+from operator import indexOf
 from pathlib import Path
 
 
@@ -41,11 +42,32 @@ def rotateMap(data):
 
 def genMap():
     data = []
-    for y in range(0, 30):
+    for y in range(0, 32):
         for x in range(0, 32):
             n = 1 << 5
             n = n << 8
             index = y + x * 30
+            n |= index
+            #print(x, y, n, index, "{0:16b}".format(n))
+            high = n >> 8
+            low = n & 0x00ff
+            data.append(low)
+            data.append(high)
+    return data
+
+def genMapRight():
+    data = []
+    for y in range(0, 32):
+        for x in range(0, 32):
+            indexOffset = 0
+            tempX = x
+            if x == 0:
+                indexOffset = 960
+            else:
+                tempX -= 1
+            n = 1 << 5
+            n = n << 8
+            index = y + tempX * 30 + indexOffset + 0
             n |= index
             #print(x, y, n, index, "{0:16b}".format(n))
             high = n >> 8
@@ -75,5 +97,5 @@ def rotateScrollingBackgrounds():
         data = list(open(bg, "rb").read())
         rot = bytes(rotatePic(data))
         open(bg, "wb").write(rot)
-        open(bg.replace(".pic",".map"), "wb").write(bytes(genMap()))
+        open(bg.replace(".pic",".map"), "wb").write(bytes(genMap() + genMapRight()))
 
