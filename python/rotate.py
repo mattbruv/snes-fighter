@@ -64,7 +64,7 @@ def genMapRight():
             if x == 0:
                 indexOffset = 960
             else:
-                tempX -= 1
+                tempX -= 0
             n = 1 << 5
             n = n << 8
             index = y + tempX * 30 + indexOffset + 0

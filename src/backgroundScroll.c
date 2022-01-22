@@ -82,6 +82,8 @@ void scrollBGUpdate()
     //dmaCopyVram(currentScrollBG->bg[1].tileAddress, 0x9800 / 2, (8 * 4 * 32));
     if (step == 0)
     {
+        //step++;
+        //return;
         u8 i = 0;
         //dmaCopyVram(currentScrollBG->bg[1].tileAddress, columnAddressLookup[50], colSize);
 
@@ -114,7 +116,7 @@ void initColumnLookup()
 
     // fill right side of columns
     i = 1;
-    u8 col = 0;
+    u8 col = i;
     for (; i < 32; i++)
     {
         u16 addr = TILE_ADDRESS + ((col * 8 * 4 * 30) / 2);
