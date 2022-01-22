@@ -43,7 +43,7 @@ typedef struct
 ScrollBG lake;
 ScrollBG* currentScrollBG;
 
-u16 columnTileAddress[32 * 2];
+u16 columnAddressLookup[32 * 2];
 
 void setScrollBackground()
 {
@@ -81,13 +81,54 @@ void scrollBGUpdate()
     //dmaCopyVram(currentScrollBG->bg[1].tileAddress, 0x9800 / 2, (8 * 4 * 32));
     if (step == 0)
     {
-        dmaCopyVram(currentScrollBG->bg[1].tileAddress, 0x9800 / 2, (8 * 4 * 30));
+        dmaCopyVram(currentScrollBG->bg[1].tileAddress, columnAddressLookup[32], (8 * 4 * 30));
     }
     else if (step == 1)
     {
-        dmaCopyVram(currentScrollBG->bg[1].tileAddress + (8 * 4 * 30), TILE_ADDRESS, (8 * 4 * 30));
+        dmaCopyVram(currentScrollBG->bg[1].tileAddress + (8 * 4 * 30), columnAddressLookup[33],
+                    (8 * 4 * 30));
+    }
+    else if (step == 3)
+    {
+        dmaCopyVram(currentScrollBG->bg[1].tileAddress + (8 * 4 * 30 * 2), columnAddressLookup[34],
+                    (8 * 4 * 30));
+    }
+    else if (step == 4)
+    {
+        dmaCopyVram(currentScrollBG->bg[1].tileAddress + (8 * 4 * 30 * 15), columnAddressLookup[63],
+                    (8 * 4 * 30));
     }
     step++;
+}
+
+void initColumnLookup()
+{
+    u8 i = 0;
+    // fill left side of columns
+    for (; i < 32; i++)
+    {
+        u16 addr = TILE_ADDRESS + ((i * 8 * 4 * 30) / 2);
+        columnAddressLookup[i] = addr;
+        //consoleNocashMessage("%hu\n", addr);
+    }
+
+    // fill right side of columns
+    i = 1;
+    u8 col = 0;
+    for (; i < 32; i++)
+    {
+        u16 addr = TILE_ADDRESS + ((col * 8 * 4 * 30) / 2);
+        columnAddressLookup[i + 32] = addr;
+        col++;
+        //consoleNocashMessage("%hu\n", addr);
+    }
+
+    // fill in padding column address
+    columnAddressLookup[32] = 0x9800 / 2;
+    for (i = 0; i < 64; i++)
+    {
+        consoleNocashMessage("%hu %hu\n", (u16)i, columnAddressLookup[i]);
+    }
 }
 
 void initScrollBackgrounds()
@@ -107,4 +148,6 @@ void initScrollBackgrounds()
     lake.bg[1].tileSize = gfx_lake_02_pic_size;
     lake.bg[1].paletteSize = gfx_lake_02_pal_size;
     lake.bg[1].mapSize = gfx_lake_02_map_size;
+
+    initColumnLookup();
 }
