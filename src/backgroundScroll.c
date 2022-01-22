@@ -66,7 +66,7 @@ void setScrollBackground()
     }
 
     setScreenOn(); // needed after enabling/disabling the backgrounds
-    bgSetScroll(BG_NUMBER, 8 * 2, 0);
+    bgSetScroll(BG_NUMBER, 8 * 50, 0);
 
     WaitForVBlank();
 }
@@ -83,11 +83,18 @@ void scrollBGUpdate()
     if (step == 0)
     {
         u8 i = 0;
+        //dmaCopyVram(currentScrollBG->bg[1].tileAddress, columnAddressLookup[50], colSize);
 
+        // 50
         for (; i < 32; i++)
         {
+            u8 j = 0;
+            for (j; j < 20; j++)
+            {
+                WaitForVBlank();
+            }
             dmaCopyVram(currentScrollBG->bg[1].tileAddress + (colSize * i),
-                        columnAddressLookup[i + 2], colSize);
+                        columnAddressLookup[(i + 50) % 64], colSize);
             WaitForVBlank();
         }
     }
