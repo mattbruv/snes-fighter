@@ -78,22 +78,26 @@ void initBuffer()
     for (; i < bg->bg[0].mapSize; i++)
     {
         bufferTileMap[i] = bg->bg[0].mapAddress[i];
+        bufferTileMap[(sizeof(bufferTileMap) / 2) + i] = bg->bg[1].mapAddress[i];
     }
 }
 
 u8 done = 0;
-u8 i = 0;
 void scrollBGUpdate()
 {
-    if (done++ % 2 == 0)
+    if (done > 0)
+        return;
+    done++;
+
+    //dmaCopyVram(bufferTileMap, MAP_ADDRESS, sizeof(bufferTileMap));
+    //dmaCopyVram(currentScrollBG->bg[1].tileAddress, 0x9800 / 2, (8 * 4 * 32));
+    u8 j = 0;
+    for (; j < 10; j++)
     {
-        //    dmaCopyVram(bufferTileMap + 4, MAP_ADDRESS, sizeof(bufferTileMap));
+        dmaCopyVram(currentScrollBG->bg[1].tileAddress, TILE_ADDRESS, (8 * 4 * 30 * 32));
+        WaitForVBlank();
     }
-    else
-    {
-        //dmaCopyVram(bufferTileMap, MAP_ADDRESS, sizeof(bufferTileMap));
-    }
-    //WaitForVBlank();
+    // load the next column, demo
 }
 
 void initScrollBackgrounds()
@@ -114,5 +118,5 @@ void initScrollBackgrounds()
     lake.bg[1].paletteSize = gfx_lake_02_pal_size;
     lake.bg[1].mapSize = gfx_lake_02_map_size;
 
-    //initBuffer();
+    initBuffer();
 }

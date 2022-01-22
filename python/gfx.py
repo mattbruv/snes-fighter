@@ -7,7 +7,7 @@ defaultArgs = ["-pr", "-pc16", "-n", "-gs8", "-pe0", "-fbmp", "-m"]
 
 scrollingArgs = [
     "-mR!", # No tile reduction (not advised)
-    "-pr",  # Rearrange palette, and preserve palette numbers in the tilemap
+    #"-pr",  # Rearrange palette, and preserve palette numbers in the tilemap
     "-pc16",  # The number of colors to use: 16
     "-n",  # no border
     "-gs8",  # Size of image blocks in pixels: 8
