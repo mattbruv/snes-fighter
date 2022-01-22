@@ -72,6 +72,7 @@ void setScrollBackground()
 }
 
 u8 step = 0;
+#define colSize (8 * 4 * 30)
 void scrollBGUpdate()
 {
     if (step > 5)
@@ -81,22 +82,14 @@ void scrollBGUpdate()
     //dmaCopyVram(currentScrollBG->bg[1].tileAddress, 0x9800 / 2, (8 * 4 * 32));
     if (step == 0)
     {
-        dmaCopyVram(currentScrollBG->bg[1].tileAddress, columnAddressLookup[32], (8 * 4 * 30));
-    }
-    else if (step == 1)
-    {
-        dmaCopyVram(currentScrollBG->bg[1].tileAddress + (8 * 4 * 30), columnAddressLookup[33],
-                    (8 * 4 * 30));
-    }
-    else if (step == 3)
-    {
-        dmaCopyVram(currentScrollBG->bg[1].tileAddress + (8 * 4 * 30 * 2), columnAddressLookup[34],
-                    (8 * 4 * 30));
-    }
-    else if (step == 4)
-    {
-        dmaCopyVram(currentScrollBG->bg[1].tileAddress + (8 * 4 * 30 * 15), columnAddressLookup[63],
-                    (8 * 4 * 30));
+        u8 i = 0;
+
+        for (; i < 32; i++)
+        {
+            dmaCopyVram(currentScrollBG->bg[1].tileAddress + (colSize * i),
+                        columnAddressLookup[i + 2], colSize);
+            WaitForVBlank();
+        }
     }
     step++;
 }
