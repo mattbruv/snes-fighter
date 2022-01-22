@@ -64,6 +64,9 @@ def genMapRight():
             if x == 0:
                 indexOffset = 960
             else:
+                # TODO: this isn't needed, remove this code
+                # This resulted in some weird wrapping shared columns
+                # tempX -= 1
                 tempX -= 0
             n = 1 << 5
             n = n << 8
