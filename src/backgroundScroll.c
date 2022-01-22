@@ -50,7 +50,7 @@ void setScrollBackground()
     setMode(BG_MODE1, BG3_MODE1_PRORITY_HIGH);
 
     currentScrollBG = &lake;
-    BGInfo* bg = &currentScrollBG->bg[1];
+    BGInfo* bg = &currentScrollBG->bg[0];
     bgInitTileSet(BG_NUMBER, bg->tileAddress, bg->paletteAddress, BG_PAL_NUMBER, bg->tileSize,
                   bg->paletteSize, COLOR_MODE, TILE_ADDRESS);
     bgInitMapSet(BG_NUMBER, bg->mapAddress, bg->mapSize, BG_SIZE_MODE, MAP_ADDRESS);
@@ -75,9 +75,9 @@ ScrollBG* bg = &lake;
 void initBuffer()
 {
     u16 i = 0;
-    for (; i < bg->bg[1].mapSize; i++)
+    for (; i < bg->bg[0].mapSize; i++)
     {
-        bufferTileMap[i] = bg->bg[1].mapAddress[i];
+        bufferTileMap[i] = bg->bg[0].mapAddress[i];
     }
 }
 
@@ -86,6 +86,7 @@ void scrollBGUpdate()
 {
     if (done++ % 2 == 0)
     {
+        //    dmaCopyVram(bufferTileMap + 4, MAP_ADDRESS, sizeof(bufferTileMap));
     }
     else
     {

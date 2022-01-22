@@ -27,6 +27,8 @@ I have no experience with fighting games, so this part is going to come once:
 
 ***YET TO BE IMPLEMENTED***
 
+Rotate .pic pictures 90 degrees counterclockwise
+
 Rotate bg graphics so that DMA copies columns instead of rows
 Hold a buffer of the current 64x32 tilemap, copy this to VRAM
 
