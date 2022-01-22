@@ -43,7 +43,8 @@ typedef struct
 ScrollBG lake;
 ScrollBG* currentScrollBG;
 
-u8 bufferTileMap[2 * 32 * 32 * 2];
+u8 bufferMapLeft[2 * 32 * 32];
+u8 bufferMapRight[2 * 32 * 32];
 
 void setScrollBackground()
 {
@@ -66,7 +67,7 @@ void setScrollBackground()
     }
 
     setScreenOn(); // needed after enabling/disabling the backgrounds
-    bgSetScroll(BG_NUMBER, 0, 0);
+    bgSetScroll(BG_NUMBER, 8, 0);
 
     WaitForVBlank();
 }
@@ -77,25 +78,31 @@ void initBuffer()
     u16 i = 0;
     for (; i < bg->bg[0].mapSize; i++)
     {
-        bufferTileMap[i] = bg->bg[0].mapAddress[i];
-        bufferTileMap[(sizeof(bufferTileMap) / 2) + i] = bg->bg[1].mapAddress[i];
+        bufferMapLeft[i] = bg->bg[0].mapAddress[i];
+        bufferMapRight[i] = bg->bg[1].mapAddress[i];
     }
 }
 
-u8 done = 0;
+u8 step = 0;
 void scrollBGUpdate()
 {
-    if (done > 0)
+    if (step > 5)
         return;
-    done++;
+    step++;
 
     //dmaCopyVram(bufferTileMap, MAP_ADDRESS, sizeof(bufferTileMap));
     //dmaCopyVram(currentScrollBG->bg[1].tileAddress, 0x9800 / 2, (8 * 4 * 32));
-    u8 j = 0;
-    for (; j < 10; j++)
+    if (step == 0)
     {
-        dmaCopyVram(currentScrollBG->bg[1].tileAddress, TILE_ADDRESS, (8 * 4 * 30 * 32));
-        WaitForVBlank();
+        u8 j = 0;
+        for (; j < 10; j++)
+        {
+            dmaCopyVram(currentScrollBG->bg[1].tileAddress, 0x9800 / 2, (8 * 4 * 30));
+            //WaitForVBlank();
+        }
+    }
+    else if (step == 1)
+    {
     }
     // load the next column, demo
 }
