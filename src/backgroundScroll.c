@@ -82,6 +82,7 @@ void initBuffer()
 }
 
 u8 done = 0;
+u8 i = 0;
 void scrollBGUpdate()
 {
     if (done++ % 2 == 0)

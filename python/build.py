@@ -1,4 +1,5 @@
 from gfx import processGraphics
+from rotate import rotateScrollingBackgrounds
 from tools import makeDirs
 from pathlib import Path
 
@@ -63,3 +64,4 @@ data = []
 processGraphics(data)
 writeData(data)
 writeHeader(data)
+rotateScrollingBackgrounds()

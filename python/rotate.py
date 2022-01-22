@@ -1,16 +1,5 @@
+from pathlib import Path
 
-"""
-
-.map files are 32x30 arrays of 2 bytes
-1920 bytes
-
-.pic files are 
-32*30 arrays of 8 * 4 bytes
-
-30720 bytes
-chunk into 32x32 of 8 * 4 bytes
-
-"""
 
 def flatten(t):
     return [item for sublist in t for item in sublist]
@@ -27,7 +16,7 @@ def rotatePic(data):
             offset = y * width + (x * 8 * 4)
             ns = data[offset:offset+8*4]
             rotated.append(ns)
-            print(x, y, offset, ns)
+            #print(x, y, offset, ns)
             pass
 
     return flatten(rotated)
@@ -44,7 +33,7 @@ def rotateMap(data):
             offset = y * width + (x * 2)
             ns = data[offset:offset+2]
             rotated.append(ns)
-            print(x, y, offset, ns)
+            #print(x, y, offset, ns)
             pass
 
     return flatten(rotated)
@@ -58,13 +47,14 @@ def genMap():
             n = n << 8
             index = y + x * 30
             n |= index
-            print(x, y, n, index, "{0:16b}".format(n))
+            #print(x, y, n, index, "{0:16b}".format(n))
             high = n >> 8
             low = n & 0x00ff
             data.append(low)
             data.append(high)
     return data
 
+"""
 with open("../data/lake_01.pic", "rb") as f:
     data = list(f.read())
 data = rotatePic(data)
@@ -72,3 +62,18 @@ open("../data/lake_01.pic", "wb").write(bytes(data))
 
 newMap = bytes(genMap())
 open("../data/lake_01.map", "wb").write(newMap)
+"""
+
+def getPath(path: Path):
+    return "data/" + path.name.replace(".bmp", ".pic")
+
+def rotateScrollingBackgrounds():
+    bgs = Path("gfx/backgrounds/scrolling/").rglob("*.bmp")
+    bgs = list(map(getPath, bgs))
+    for bg in bgs:
+        print("rotate:", bg)
+        data = list(open(bg, "rb").read())
+        rot = bytes(rotatePic(data))
+        open(bg, "wb").write(rot)
+        open(bg.replace(".pic",".map"), "wb").write(bytes(genMap()))
+
