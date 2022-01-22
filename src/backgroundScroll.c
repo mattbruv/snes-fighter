@@ -90,7 +90,7 @@ void scrollBGUpdate()
     }
     else
     {
-        dmaCopyVram(bufferTileMap, MAP_ADDRESS, sizeof(bufferTileMap));
+        //dmaCopyVram(bufferTileMap, MAP_ADDRESS, sizeof(bufferTileMap));
     }
     //WaitForVBlank();
 }
@@ -113,5 +113,5 @@ void initScrollBackgrounds()
     lake.bg[1].paletteSize = gfx_lake_02_pal_size;
     lake.bg[1].mapSize = gfx_lake_02_map_size;
 
-    initBuffer();
+    //initBuffer();
 }

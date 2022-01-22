@@ -50,13 +50,25 @@ def rotateMap(data):
     return flatten(rotated)
 
 
+def genMap():
+    data = []
+    for y in range(0, 30):
+        for x in range(0, 32):
+            n = 1 << 5
+            n = n << 8
+            index = y + x * 30
+            n |= index
+            print(x, y, n, index, "{0:16b}".format(n))
+            high = n >> 8
+            low = n & 0x00ff
+            data.append(low)
+            data.append(high)
+    return data
 
-f = open("../data/lake_01 copy.pic", "rb")
-data = list(f.read())
+with open("../data/lake_01.pic", "rb") as f:
+    data = list(f.read())
 data = rotatePic(data)
 open("../data/lake_01.pic", "wb").write(bytes(data))
 
-f = open("../data/lake_01 copy.map", "rb")
-data = list(f.read())
-data = rotateMap(data)
-open("../data/lake_01.map", "wb").write(bytes(data))
+newMap = bytes(genMap())
+open("../data/lake_01.map", "wb").write(newMap)
