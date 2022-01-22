@@ -67,7 +67,7 @@ def genMapRight():
                 # TODO: this isn't needed, remove this code
                 # This resulted in some weird wrapping shared columns
                 # tempX -= 1
-                tempX -= 0
+                tempX += 1
             n = 1 << 5
             n = n << 8
             index = y + tempX * 30 + indexOffset + 0
