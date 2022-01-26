@@ -2,7 +2,7 @@
 #define BACKGROUNDSCROLL_H
 
 void initScrollBackgrounds();
-void setScrollBackground();
 void scrollBGUpdate();
+void loadBackgroundAtPos(u16 x);
 
 #endif

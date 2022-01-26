@@ -66,15 +66,37 @@ void setScrollBackground()
     }
 
     setScreenOn(); // needed after enabling/disabling the backgrounds
-    bgSetScroll(BG_NUMBER, 8 * 50, 0);
+    bgSetScroll(BG_NUMBER, 0, 0);
 
     WaitForVBlank();
 }
 
+void loadBackgroundAtPos(u16 x)
+{
+    u8 bgIndex = x / 256;
+    u16 column_size = (8 * 4 * 30);
+
+    bgSetScroll(BG_NUMBER, x, 0);
+
+    u16 start_column = (x / 8) % 64;
+
+    u8 col = 0;
+    for (; col < 32; col++)
+    {
+        dmaCopyVram(currentScrollBG->bg[bgIndex].tileAddress + (col * column_size),
+                    columnAddressLookup[start_column + col], column_size);
+        u8 test = 0;
+        for (; test < 30; test++)
+            WaitForVBlank();
+    }
+}
+
+/*
 u8 step = 0;
 #define colSize (8 * 4 * 30)
 void scrollBGUpdate()
 {
+    return;
     if (step > 5)
         return;
 
@@ -96,7 +118,7 @@ void scrollBGUpdate()
         }
     }
     step++;
-}
+}*/
 
 void initColumnLookup()
 {
@@ -122,9 +144,9 @@ void initColumnLookup()
 
     // fill in padding column address
     columnAddressLookup[32] = 0x9800 / 2;
-    for (i = 0; i < 64; i++)
+    //for (i = 0; i < 64; i++)
     {
-        consoleNocashMessage("%hu %hu\n", (u16)i, columnAddressLookup[i]);
+        //consoleNocashMessage("%hu %hu\n", (u16)i, columnAddressLookup[i]);
     }
 }
 

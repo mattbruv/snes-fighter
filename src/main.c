@@ -23,12 +23,13 @@ void main()
 
     // Set up test game state
     setScrollBackground();
+    loadBackgroundAtPos(128);
 
     setScreenOn();
 
     while (1)
     {
-        scrollBGUpdate();
+        // scrollBGUpdate();
         tickSprite();
         WaitForVBlank();
     }
