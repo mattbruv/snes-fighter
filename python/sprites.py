@@ -64,6 +64,8 @@ def writeHeader(anims):
         defAnimFrames.append("// " + person + " frames")
         for anim in anims[person]:
             defAnims.append("Animation " + "anim_" + person + "_" + anim + ";")
+            size = str(len(anims[person][anim]))
+            defAnims.append("AnimFrame " + "frames_" + person + "_" + anim + "[" + size + "];")
             for info in anims[person][anim]:
                 frame = info["name"]
                 defAnimFrames.append("AnimFrame animframe_" + frame + ";")
