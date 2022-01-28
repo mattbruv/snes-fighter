@@ -61,14 +61,14 @@ def writeHeader(anims):
 
     for person in anims:
         defAnims.append("// " + person + " animations")
-        defAnimFrames.append("// " + person + " frames")
+        #defAnimFrames.append("// " + person + " frames")
         for anim in anims[person]:
             defAnims.append("Animation " + "anim_" + person + "_" + anim + ";")
             size = str(len(anims[person][anim]))
             defAnims.append("AnimFrame " + "frames_" + person + "_" + anim + "[" + size + "];")
             for info in anims[person][anim]:
                 frame = info["name"]
-                defAnimFrames.append("AnimFrame animframe_" + frame + ";")
+                #defAnimFrames.append("AnimFrame animframe_" + frame + ";")
             print(person, anim)
         defAnims.append("")
         defAnimFrames.append("")
@@ -87,9 +87,11 @@ def writeSource(anims):
 
     for person in anims:
         for anim in anims[person]:
+            frameIndex = 0
             for info in anims[person][anim]:
                 frame = info["name"]
-                label = "animframe_" + frame
+                label = "frames_" + person + "_" + anim + "[" + str(frameIndex) + "]"
+                frameIndex += 1
                 initCode.append("    " + label + ".centerX = 0;")
                 initCode.append("    " + label + ".centerY = 0;")
 
