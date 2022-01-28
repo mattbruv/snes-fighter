@@ -1,13 +1,5 @@
 #include <snes.h>
-#include "data.h"
-
-typedef struct
-{
-    u8* picAddr;
-    u8* palAddr;
-    u16 picSize;
-    u16 palSize;
-} AnimFrame;
+#include "sprite.h"
 
 #define MAX_FRAMES 10
 
