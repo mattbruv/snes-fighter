@@ -1,4 +1,7 @@
+from math import ceil
 from pathlib import Path
+from PIL import Image
+from numpy import mat
 
 C_SOURCE = """#include <snes.h>
 #include "spriteData.h"
@@ -37,13 +40,21 @@ def getSprites():
             anims[person] = {}
         if anim not in anims[person]:
             anims[person][anim] = []
-        anims[person][anim].append(file)
-        print(person, anim, p, file)
+        # get all the info here
+        info = {}
+        info["name"] = file
+        info["path"] = str(f)
+        img = Image.open(str(f))
+        width, height = img.size
+        info["width"] = width
+        info["height"] = height
+        anims[person][anim].append(info)
+        #print(person, anim, p, file)
+        #print(info)
     return anims
 
-def writeHeader():
-    anims = getSprites()
-    print(anims)
+def writeHeader(anims):
+    #print(anims)
     header = C_HEADER
     defAnims = []
     defAnimFrames = []
@@ -53,9 +64,9 @@ def writeHeader():
         defAnimFrames.append("// " + person + " frames")
         for anim in anims[person]:
             defAnims.append("Animation " + "anim_" + person + "_" + anim + ";")
-            for frame in anims[person][anim]:
+            for info in anims[person][anim]:
+                frame = info["name"]
                 defAnimFrames.append("AnimFrame animframe_" + frame + ";")
-                print(frame)
             print(person, anim)
         defAnims.append("")
         defAnimFrames.append("")
@@ -67,18 +78,21 @@ def writeHeader():
 
     return header
 
-def writeSource():
+def writeSource(anims):
     source = C_SOURCE
     initCode = ["// queriendo quedarse en Monaco"]
 
-    anims = getSprites()
 
     for person in anims:
         for anim in anims[person]:
-            for frame in anims[person][anim]:
+            for info in anims[person][anim]:
+                frame = info["name"]
                 label = "animframe_" + frame
                 initCode.append("    " + label + ".centerX = 0;")
                 initCode.append("    " + label + ".centerY = 0;")
+
+                initCode.append("    " + label + ".colCount = " + str(ceil(info["width"] / 16)) + ";")
+                initCode.append("    " + label + ".rowCount = " + str(ceil(info["height"] / 16)) + ";")
 
                 initCode.append("    " + label + ".picAddr = &gfx_" + frame + "_pic;" )
                 initCode.append("    " + label + ".palAddr = &gfx_" + frame + "_pal;" )
@@ -86,14 +100,19 @@ def writeSource():
                 initCode.append("    " + label + ".palSize = gfx_" + frame + "_pal_size;" )
 
                 initCode.append("")
-                print(frame)
+                #print(frame)
             initCode.append("")
             print(person, anim)
 
     source = source.format(initCode="\n".join(initCode))
     return source
 
-header = writeHeader()
-open("src/spriteData.h", "w").write(header)
-source = writeSource()
-open("src/spriteData.c", "w").write(source)
+
+def genSpriteFiles():
+    anims = getSprites()
+    header = writeHeader(anims)
+    open("src/spriteData.h", "w").write(header)
+    source = writeSource(anims)
+    open("src/spriteData.c", "w").write(source)
+
+genSpriteFiles()
