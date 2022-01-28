@@ -63,11 +63,13 @@ def genMapRight():
             tempX = x
             if x == 0:
                 indexOffset = 960
+            elif x == 1:
+                indexOffset = 960 + 30
             else:
                 # TODO: this isn't needed, remove this code
                 # This resulted in some weird wrapping shared columns
                 # tempX -= 1
-                tempX += 1
+                tempX += 0
             n = 1 << 5
             n = n << 8
             index = y + tempX * 30 + indexOffset + 0

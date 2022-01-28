@@ -81,13 +81,12 @@ void loadBackgroundAtPos(u16 x)
     u16 start_column = (x / 8) % 64;
 
     u8 col = 0;
-    for (; col < 32; col++)
+    for (; col < 33; col++)
     {
         dmaCopyVram(currentScrollBG->bg[bgIndex].tileAddress + (col * column_size),
-                    columnAddressLookup[start_column + col], column_size);
+                    columnAddressLookup[(start_column + col) % 64], column_size);
         u8 test = 0;
-        for (; test < 30; test++)
-            WaitForVBlank();
+        WaitForVBlank();
     }
 }
 
@@ -133,17 +132,16 @@ void initColumnLookup()
 
     // fill right side of columns
     i = 1;
-    u8 col = i + 1;
-    for (; i < 32; i++)
+    for (; i < 30; i++)
     {
-        u16 addr = TILE_ADDRESS + ((col * 8 * 4 * 30) / 2);
-        columnAddressLookup[i + 32] = addr;
-        col++;
+        u16 addr = TILE_ADDRESS + ((i * 8 * 4 * 30) / 2);
+        columnAddressLookup[i + 34] = addr;
         //consoleNocashMessage("%hu\n", addr);
     }
 
     // fill in padding column address
     columnAddressLookup[32] = 0x9800 / 2;
+    columnAddressLookup[33] = 0x9800 / 2 + ((8 * 4 * 30) / 2);
     //for (i = 0; i < 64; i++)
     {
         //consoleNocashMessage("%hu %hu\n", (u16)i, columnAddressLookup[i]);

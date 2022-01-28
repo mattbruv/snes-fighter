@@ -23,7 +23,6 @@ void main()
 
     // Set up test game state
     setScrollBackground();
-    loadBackgroundAtPos(128);
 
     setScreenOn();
 

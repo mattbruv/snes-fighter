@@ -20,6 +20,13 @@ I have no experience with fighting games, so this part is going to come once:
 * I understand the limitations of the SNES better
 * I gain experience with other fighting games to know what base features to add.
 
+# Roadmap
+1. <s>Scrollable backgrounds</s> *having a really difficult time getting this to work, going to move on for now.
+2. Sprite rendering system
+3. Sprite movement
+4. Collision detection
+5. Damage calculations
+
 # Engine Specifications
 
 ## Background
