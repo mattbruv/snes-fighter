@@ -46,7 +46,7 @@ def writeData(data):
             asmText = endSection(asmText)
             sectionNumber += 1
             asmText = addSection(asmText, sectionNumber)
-            bytesUsed = 0
+            bytesUsed = size
         bytesUsed += size
         name = entry["file"]
         label = entry["prefix"] + "_" + name.replace(".", "_")
@@ -62,6 +62,7 @@ makeDirs()
 
 data = []
 processGraphics(data)
+data = sorted(data, key=lambda x: x["file"])
 writeData(data)
 writeHeader(data)
 rotateScrollingBackgrounds()
