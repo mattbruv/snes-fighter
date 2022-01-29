@@ -10,6 +10,7 @@ typedef struct SpriteFighter
 {
     u8 id;
     u16 address;
+    u8 paletteNum;
 
     u8 xPos;
     u8 yPos;
@@ -28,8 +29,11 @@ void loadSprite(SpriteFighter* sprite)
     //consoleNocashMessage("pic addr: %hu, pal addr: %hu\n",
     //                    (u16)anim->frames[anim->frameCounter].picAddr, (u16)&frame->palAddr);
 
-    oamInitGfxSet(frame->picAddr, frame->picSize, frame->palAddr, frame->palSize, PAL_INDEX,
-                  sprite->address, OBJ_SIZE8_L16);
+    oamInitGfxSet(frame->picAddr, frame->picSize, frame->palAddr, frame->palSize,
+                  sprite->paletteNum, sprite->address, OBJ_SIZE8_L16);
+    //dmaCopyCGram(frame->palAddr, 0x10 * (sprite->paletteNum + 8), frame->palSize);
+
+    // consoleNocashMessage("pal id: %hu\n", (u16)sprite->paletteNum);
 
     u16 x = 0;
     u16 y = 0;
@@ -45,8 +49,9 @@ void loadSprite(SpriteFighter* sprite)
         {
             rows = (spriteCount * 2) / 16;
             id = spriteCount * 4 + (idOffset * 4);
-            offset = ((spriteCount * 2)) + rows * 16;
-            oamSet(id, x * 16 + sprite->xPos, y * 16 + sprite->yPos, 3, 0, 0, offset, PAL_INDEX);
+            offset = ((spriteCount * 2)) + rows * 16 + (sprite->id * 16 * 8);
+            oamSet(id, x * 16 + sprite->xPos, y * 16 + sprite->yPos, 3, 0, 0, offset,
+                   sprite->paletteNum);
             oamSetEx(id, OBJ_LARGE, OBJ_SHOW);
             spriteCount++;
         }
@@ -78,13 +83,15 @@ void initSprites()
     spritePlayer1.yPos = 85;
     spritePlayer1.id = 0;
     spritePlayer1.address = SPRITE_ADDR;
-    spritePlayer1.currentAnim = &anim_evan_idle;
+    spritePlayer1.paletteNum = 0;
+    spritePlayer1.currentAnim = &anim_matt_idle;
 
     spritePlayer2.xPos = 155;
     spritePlayer2.yPos = 85;
     spritePlayer2.id = 1;
     spritePlayer2.address = 0x0000;
-    spritePlayer2.currentAnim = &anim_matt_idle;
+    spritePlayer2.paletteNum = 1;
+    spritePlayer2.currentAnim = &anim_evan_idle;
 
     loadSprite(&spritePlayer1);
     loadSprite(&spritePlayer2);
