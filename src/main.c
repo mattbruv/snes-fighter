@@ -17,7 +17,6 @@ void main()
 
     // Initialize game engine data
     initScrollBackgrounds();
-    initSprites();
 
     WaitForVBlank();
 
@@ -25,6 +24,8 @@ void main()
     setScrollBackground();
 
     setScreenOn();
+
+    initSprites();
 
     while (1)
     {

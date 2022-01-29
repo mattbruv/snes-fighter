@@ -3,7 +3,7 @@
 
 #include <snes.h>
 
-typedef struct
+typedef struct AnimFrame
 {
     u8* picAddr;
     u8* palAddr;
@@ -17,13 +17,16 @@ typedef struct
     u8 centerY;
 } AnimFrame;
 
-typedef struct
+typedef struct Animation
 {
     u8 frameCounter;
     u8 totalFrames;
 
     u8 waitCounter;
     u8 waitThreshold;
+
+    u8 reversable;
+    s8 frameDirection;
 
     AnimFrame* frames;
 } Animation;
