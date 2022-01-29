@@ -8,12 +8,17 @@
 
 typedef struct SpriteFighter
 {
+    u8 id;
+    u16 address;
+
     u8 xPos;
     u8 yPos;
+
     Animation* currentAnim;
 } SpriteFighter;
 
 SpriteFighter spritePlayer1;
+SpriteFighter spritePlayer2;
 
 void loadSprite(SpriteFighter* sprite)
 {
@@ -24,11 +29,12 @@ void loadSprite(SpriteFighter* sprite)
     //                    (u16)anim->frames[anim->frameCounter].picAddr, (u16)&frame->palAddr);
 
     oamInitGfxSet(frame->picAddr, frame->picSize, frame->palAddr, frame->palSize, PAL_INDEX,
-                  SPRITE_ADDR, OBJ_SIZE8_L16);
+                  sprite->address, OBJ_SIZE8_L16);
 
     u16 x = 0;
     u16 y = 0;
     u16 spriteCount = 0;
+    u16 idOffset = sprite->id * 50;
     u16 id = 0;
     u16 rows = 0;
     u16 offset = 0;
@@ -38,13 +44,14 @@ void loadSprite(SpriteFighter* sprite)
         for (x = 0; x < frame->colCount; x++)
         {
             rows = (spriteCount * 2) / 16;
-            id = spriteCount * 4;
+            id = spriteCount * 4 + (idOffset * 4);
             offset = ((spriteCount * 2)) + rows * 16;
             oamSet(id, x * 16 + sprite->xPos, y * 16 + sprite->yPos, 3, 0, 0, offset, PAL_INDEX);
             oamSetEx(id, OBJ_LARGE, OBJ_SHOW);
             spriteCount++;
         }
     }
+    //WaitForVBlank();
 }
 
 void initSprites()
@@ -69,14 +76,23 @@ void initSprites()
 
     spritePlayer1.xPos = 55;
     spritePlayer1.yPos = 85;
-    spritePlayer1.currentAnim = &anim_matt_idle;
+    spritePlayer1.id = 0;
+    spritePlayer1.address = SPRITE_ADDR;
+    spritePlayer1.currentAnim = &anim_evan_idle;
+
+    spritePlayer2.xPos = 155;
+    spritePlayer2.yPos = 85;
+    spritePlayer2.id = 1;
+    spritePlayer2.address = 0x0000;
+    spritePlayer2.currentAnim = &anim_matt_idle;
 
     loadSprite(&spritePlayer1);
+    loadSprite(&spritePlayer2);
 }
 
-void tickSprite()
+void tickSprite(SpriteFighter* sprite)
 {
-    Animation* anim = spritePlayer1.currentAnim;
+    Animation* anim = sprite->currentAnim;
 
     if (++anim->waitCounter >= anim->waitThreshold)
     {
@@ -104,11 +120,14 @@ void tickSprite()
             }
         }
 
-        loadSprite(&spritePlayer1);
-        //consoleNocashMessage("frame: %hu\n", (u16)anim->frameCounter);
-        //consoleNocashMessage("addr evan: %hu\n", (u16)&frames_evan_idle);
-        //consoleNocashMessage("addr sprite: %hu\n", (u16)&anim->frames);
+        loadSprite(sprite);
     }
+}
+
+void tickSprites()
+{
+    tickSprite(&spritePlayer1);
+    tickSprite(&spritePlayer2);
 }
 
 void moveSprites()

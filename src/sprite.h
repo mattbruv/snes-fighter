@@ -33,6 +33,6 @@ typedef struct Animation
 
 void initSprites();
 void updateSprites();
-void tickSprite();
+void tickSprites();
 
 #endif

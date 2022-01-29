@@ -30,7 +30,7 @@ void main()
     while (1)
     {
         // scrollBGUpdate();
-        tickSprite();
+        tickSprites();
         WaitForVBlank();
     }
 }
